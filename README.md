@@ -88,7 +88,7 @@ Open the terminal within the downloaded 'docker'-folder. When executing docker b
     -> Docker stops if no application is running foreground. As glassfish runs in background, the container would stop if the script is executed completely. So we decided to choose this workaround: the last domain is restarted in verbose mode, so glassfish enters the console and pretends to run foreground. Sadly there's one bad side effect: No command can be executed beyond this point. Maybe there's another solution which we did not find so far.
     
 ### restart.sh
--this script gets executed only if the glassfish setup (password, enabling secure-admin etc) was done before. In other words, this script is used when we restart a stopped container. 
+-this script gets executed only if the glassfish setup (password, enabling secure-admin etc) was executed before. In other words, this script is used when we restart a stopped container. 
     
 # Problems which are not resolved so far
 
