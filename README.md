@@ -17,12 +17,11 @@ Open the terminal within the downloaded 'docker'-folder. When executing docker b
 - you can exchange 'someName' to whatever you want. This will be the image name. Very important: do not forget the fullstop after the name.
 - it takes some time when executed the first time as it needs to dowload ubuntu, java, glassfish a some other files.
 - You need to rebuild the image to get a new version of CoCoME
-- TODO: Auto-Update of git?!  Tobi?
 - check if the image was created successfully by using the command *docker images*. The image name should appear under REPOSITORY.
 
 ### Docker run
 - use ```docker run -d -p 8080:8080 someName``` to run the image.
-- it takes some time to start each glassfish domain, execute maven to deploy CoCoME on the domains.
+- it takes some time to start each glassfish domain, execute maven to deploy CoCoME on the domains(around 30 to 45 minutes).
 - Use the docker logs to get information about the progress. Therefore use the command ```docker ps``` to identify the containerID, then execute ```docker logs containerID -f``` with the actual containerID. (You can exit the log-view with Ctrl-C). You will notice that each domain will get started, stoped and restart. After that, you should be able to access the CoCoME UI via your [browser](http://localhost:8080/cloud-web-frontend/)
 
 ### Docker run full access
