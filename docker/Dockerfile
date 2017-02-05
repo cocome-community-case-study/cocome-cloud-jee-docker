@@ -21,16 +21,16 @@ RUN \
   apt-get install -y oracle-java8-installer python-software-properties unzip ant git python-virtualenv maven && \
   rm -rf /var/lib/apt/lists/* && \
   rm -rf /var/cache/oracle-jdk8-installer && \
-  git clone https://github.com/cocome-community-case-study/cocome-cloud-jee-docker.git usr/src/
+  git clone https://github.com/cocome-community-case-study/cocome-cloud-jee-docker.git /usr/src/
 
 ADD cocome-maven-project-setting.xml /usr/src/cocome-maven-project-setting.xml
 ADD serviceadapter-settings.xml /usr/src/serviceadapter-settings.xml
 
 RUN \
-  git clone https://github.com/cocome-community-case-study/cocome-cloud-jee-platform-migration.git usr/src/cocome && \
+  git clone https://github.com/cocome-community-case-study/cocome-cloud-jee-platform-migration.git /usr/src/cocome && \
   cd /usr/src/cocome/cocome-maven-project && \
   mvn -s /usr/src/cocome-maven-project-setting.xml clean compile package && \
-  git clone https://github.com/cocome-community-case-study/cocome-cloud-jee-service-adapter.git usr/src/serviceadapter && \
+  git clone https://github.com/cocome-community-case-study/cocome-cloud-jee-service-adapter.git /usr/src/serviceadapter && \
   cd /usr/src/serviceadapter && \
   mvn -s /usr/src/serviceadapter-settings.xml clean compile package
 
