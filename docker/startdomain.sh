@@ -99,19 +99,10 @@ echo "AS_ADMIN_PASSWORD=${PASSWORD}" >> /usr/src/glassfish/glassfish4/glassfish/
 /usr/src/glassfish/glassfish4/glassfish/bin/asadmin --user admin --passwordfile /usr/src/glassfish/glassfish4/glassfish/passwordfile --port $REGISTRY_PORT enable-secure-admin
 
 #############################################################################
-#git clone https://github.com/cocome-community-case-study/cocome-cloud-jee-platform-migration.git usr/src/cocome
-
-#git clone https://github.com/cocome-community-case-study/cocome-cloud-jee-service-adapter.git usr/src/serviceadapter
-
-#cd /usr/src/cocome/cocome-maven-project && mvn -s /usr/src/cocome-maven-project-setting.xml clean compile package 
 
 cd /usr/src/cocome/cocome-maven-project && mvn -s /usr/src/cocome-maven-project-setting.xml install
 
-
-#cd /usr/src/serviceadapter && mvn -s /usr/src/serviceadapter-settings.xml clean compile package 
-
 cd /usr/src/serviceadapter && mvn -s /usr/src/serviceadapter-settings.xml install
-
 
 ##############################################################################
 #restart needed because of changed attributes like password
