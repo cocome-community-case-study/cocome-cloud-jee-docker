@@ -1,0 +1,40 @@
+FROM ubuntu:16.04
+
+MAINTAINER Niko Benkler and Tobias Haßberg
+
+# Set environment variables
+ENV MD5=4e7ce65489347960e9797d2161e0ada2 \
+    JAVA_HOME=/usr/lib/jvm/java-8-oracle \
+	PASSWORD=password
+
+ADD startdomain.sh /startdomain.sh 
+ADD stopdomain.sh /stopdomain.sh  
+ADD restart.sh /restart.sh
+
+# Install.
+RUN \
+  apt-get update && \
+  apt-get install -y software-properties-common && \
+  add-apt-repository -y ppa:webupd8team/java && \
+  echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
+  apt-get update && \
+  apt-get install -y oracle-java8-installer python-software-properties unzip ant git python-virtualenv maven && \
+  rm -rf /var/lib/apt/lists/* && \
+  rm -rf /var/cache/oracle-jdk8-installer && \
+  git clone https://github.com/cocome-community-case-study/cocome-cloud-jee-docker.git /usr/src/
+
+ADD cocome-maven-project-setting.xml /usr/src/cocome-maven-project-setting.xml
+ADD serviceadapter-settings.xml /usr/src/serviceadapter-settings.xml
+
+RUN \
+  git clone https://github.com/cocome-community-case-study/cocome-cloud-jee-platform-migration.git /usr/src/cocome && \
+  cd /usr/src/cocome/cocome-maven-project && \
+  mvn -s /usr/src/cocome-maven-project-setting.xml clean compile package && \
+  git clone https://github.com/cocome-community-case-study/cocome-cloud-jee-service-adapter.git /usr/src/serviceadapter && \
+  cd /usr/src/serviceadapter && \
+  mvn -s /usr/src/serviceadapter-settings.xml clean compile package
+
+# 4848 (administration), 8080 (HTTP listener), 8181 (HTTPS listener)
+EXPOSE 8048 8080 8081 8148 8180 8181 8248 8280 8281 8348 8380 8381 8448 8480 8481
+
+CMD ["/startdomain.sh"]
